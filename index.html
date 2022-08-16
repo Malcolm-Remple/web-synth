@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="main.js" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Web Audio Keyboard</title>
+  </head>
+  <body>
+
+  <section class="wrapper">
+    <!-- Panel -->
+    <div class="panel">
+      
+      <div class="flex">
+        <!-- Wave Select -->
+        <select class="select" onchange="handleSelectChange(event)">
+          <option value="sine">sine wave</option>
+          <option value="square">square wave</option>
+          <option value="triangle">triangle</option>
+          <option value="sawtooth">sawtooth</option>
+        </select>
+        
+        <div class="ml-5 text-white text-sm uppercase">
+          <span>Volume</span>
+          <input class="block mb-1.5" type="range" min="0" max="200" value="50" onchange="volumeSlider(event)">
+          <span>vibrato</span>
+          <input class="block" type="range" min="0" max="25" value="5" onchange="vibratoSlider(event)">
+        </div>
+      </div>
+
+      <!-- Drums -->
+      <div>
+        <button id="snare" class="drum">Snare</button>
+        <button id="kick" class="drum">Kick</button>
+        <button id="hiHat" class="drum">Hihat</button>
+      </div>
+    </div>
+    <!-- Close Panel -->
+
+
+    
+    <!-- Keys -->
+    <ul class="keyboard">
+      <li data-note="C4" class="key first-last-key white"></li>
+      <li data-note="C#4" class="key black"></li>
+      <li data-note="D4" class="key white"></li>
+      <li data-note="D#4" class="key black"></li>
+      <li data-note="E4" class="key white"></li>
+      <li data-note="F4" class="key white"></li>
+      <li data-note="F#4" class="key black"></li>
+      <li data-note="G4" class="key white"></li>
+      <li data-note="G#4" class="key black"></li>
+      <li data-note="A4" class="key white"></li>
+      <li data-note="A#4" class="key black"></li>
+      <li data-note="B4" class="key white"></li>
+      <li data-note="C5" class="key white"></li>
+      <li data-note="C#5" class="key black"></li>
+      <li data-note="D5" class="key white"></li>
+      <li data-note="D#5" class="key black"></li>
+      <li data-note="E5" class="key first-last-key white"></li>
+    </ul>
+  </section>
+  
+  </body>
+</html>
