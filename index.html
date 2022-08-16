@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This synth is made using the Web Audio API https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API">
     <script src="main.js" defer></script>
+    <script src="input-knobs.js" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
-    <title>Web Audio Keyboard</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>Web Audio API Synth</title>
   </head>
   <body>
 
@@ -17,19 +20,34 @@
       
       <div class="flex">
         <!-- Wave Select -->
-        <select class="select" onchange="handleSelectChange(event)">
-          <option value="sine">sine wave</option>
-          <option value="square">square wave</option>
-          <option value="triangle">triangle</option>
-          <option value="sawtooth">sawtooth</option>
-        </select>
-        
-        <div class="ml-5 text-white text-sm uppercase">
-          <span>Volume</span>
-          <input class="block mb-1.5" type="range" min="0" max="200" value="50" onchange="volumeSlider(event)">
-          <span>vibrato</span>
-          <input class="block" type="range" min="0" max="25" value="5" onchange="vibratoSlider(event)">
+        <div class="flex flex-col mr-3">
+          <span class="text-xs text-white uppercase leading-none font-bold tracking-wide mb-2">Wave Selection</span>
+          <select class="select h-full" onchange="handleSelectChange(event)">
+            <option value="sine">sine wave</option>
+            <option value="square">square wave</option>
+            <option value="triangle">triangle</option>
+            <option value="sawtooth">sawtooth</option>
+          </select>
         </div>
+        
+        <!-- Volume -->
+        <div class="w-16 mx-2 flex flex-col justify-between">
+          <span class="text-xs text-white uppercase text-center leading-none font-bold tracking-wide">Volume</span>
+          <input class="input-knob outline-none" type="range" min="0" max="100" value="30" onchange="volumeSlider(event)"/>
+        </div>
+
+        <!-- Volume -->
+        <div class="w-16 mx-2 flex flex-col justify-between">
+          <span class="text-xs text-white uppercase text-center leading-none font-bold tracking-wide">Vibrato</span>
+          <input class="input-knob outline-none" type="range" min="0" max="25" value="5" onchange="vibratoAmountSlider(event)"/>
+        </div>
+
+        <!-- Volume -->
+        <div class="w-16 mx-2 flex flex-col justify-between">
+          <span class="text-xs text-white uppercase text-center leading-none font-bold tracking-wide">Speed</span>
+          <input class="input-knob outline-none" type="range" min="0" max="20" value="10" onchange="vibratoSpeedSlider(event)"/>
+        </div>
+
       </div>
 
       <!-- Drums -->
@@ -41,8 +59,6 @@
     </div>
     <!-- Close Panel -->
 
-
-    
     <!-- Keys -->
     <ul class="keyboard">
       <li data-note="C4" class="key first-last-key white"></li>
