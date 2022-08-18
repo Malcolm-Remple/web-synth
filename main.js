@@ -1,3 +1,4 @@
+// Web Audio API
 const audioContext = new AudioContext();
 
 // Create audio buffer
@@ -170,23 +171,23 @@ const vibratoSpeedSlider = (event) => {
 
 // Notes
 const notes = [
-  { name: "C4", frequency: 261.63, keyId: "a" },
-  { name: "C#4", frequency: 277.18, keyId: "w" }, 
-  { name: "D4", frequency: 293.66, keyId: "s" },
-  { name: "D#4", frequency: 311.13, keyId: "e" },
-  { name: "E4", frequency: 329.63, keyId: "d" },
-  { name: "F4", frequency: 349.23, keyId: "f" },
-  { name: "F#4", frequency: 369.99, keyId: "t" },
-  { name: "G4", frequency: 392.00, keyId: "g" },
-  { name: "G#4", frequency: 415.30, keyId: "y" },
-  { name: "A4", frequency: 440.00, keyId: "h" },
-  { name: "A#4", frequency: 466.16, keyId: "u" },
-  { name: "B4", frequency: 493.88, keyId: "j" },
-  { name: "C5", frequency: 523.25, keyId: "k" },
-  { name: "C#5", frequency: 554.37, keyId: "o" },
-  { name: "D5", frequency: 587.33, keyId: "l" },
-  { name: "D#5", frequency: 622.25, keyId: "p" },
-  { name: "E5", frequency: 659.26, keyId: ";" },
+  { name: "C4", frequency: 261.63, keyId: "a", midiId: 60 },
+  { name: "C#4", frequency: 277.18, keyId: "w", midiId: 61 }, 
+  { name: "D4", frequency: 293.66, keyId: "s", midiId: 62 },
+  { name: "D#4", frequency: 311.13, keyId: "e", midiId: 63 },
+  { name: "E4", frequency: 329.63, keyId: "d", midiId: 64 },
+  { name: "F4", frequency: 349.23, keyId: "f", midiId: 65 },
+  { name: "F#4", frequency: 369.99, keyId: "t", midiId: 66 },
+  { name: "G4", frequency: 392.00, keyId: "g", midiId: 67 },
+  { name: "G#4", frequency: 415.30, keyId: "y", midiId: 68 },
+  { name: "A4", frequency: 440.00, keyId: "h", midiId: 69 },
+  { name: "A#4", frequency: 466.16, keyId: "u", midiId: 70 },
+  { name: "B4", frequency: 493.88, keyId: "j", midiId: 71 },
+  { name: "C5", frequency: 523.25, keyId: "k", midiId: 72 },
+  { name: "C#5", frequency: 554.37, keyId: "o", midiId: 73 },
+  { name: "D5", frequency: 587.33, keyId: "l", midiId: 74 },
+  { name: "D#5", frequency: 622.25, keyId: "p", midiId: 75 },
+  { name: "E5", frequency: 659.26, keyId: ";", midiId: 76 },
 ];
 
 const playNote = (frequency, element) => {
@@ -276,3 +277,55 @@ document.addEventListener("keydown", (event) => {
     playHitHat();  
   }
 });
+
+
+// Web MIDI API
+if (navigator.requestMIDIAccess) {
+  navigator.requestMIDIAccess().then(success);
+};
+
+function success(midiAccess) {
+  midiAccess.addEventListener('statechange', updateDevice);
+
+  const inputs = midiAccess.inputs;
+  
+  inputs.forEach((input) => {
+    input.addEventListener('midimessage', handleInput);
+  });
+};
+
+const handleInput = (input) => {
+  let keyCommand = input.data[0];
+  let midiNote = input.data[1];
+
+  // If keydown
+  if (keyCommand === 144) {
+    // Notes
+    notes.forEach(({name, frequency, midiId}) => {
+      const noteButton = document.querySelector(`[data-note="${name}"]`);
+
+      if (midiNote === midiId) {
+        playNote(frequency, noteButton);
+      }
+    });
+
+    // Snare
+    if (midiNote === 78) {
+      playSnare();  
+    }
+
+    // Kick
+    if (midiNote === 77) {
+      playKick();  
+    }
+
+    // Hihat
+    if (midiNote === 79) {
+      playHitHat();  
+    }
+  };
+};
+
+const updateDevice = (event) => {
+  console.log(`Name: ${event.port.name}, manufacturer: ${event.port.manufacturer}, state: ${event.port.state}`);
+};
