@@ -23,6 +23,17 @@ const volumeSlider = (event) => {
   volumeAmount = volumeAmount / 100;
 }
 
+// Toggle Keyboard Shortcuts
+const toggleKeyboardShortcuts = (event) => {
+  toggleKeyboard = event.target.value;
+  console.log(toggleKeyboard);
+
+  const toggleKeys = document.querySelectorAll("[data-toggle-key]");
+
+  toggleKeys.forEach((key) => {
+    key.classList.toggle('hidden');
+  });
+}
 
 // // Snare Drum
 const playSnare = () => {

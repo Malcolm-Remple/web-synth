@@ -29,24 +29,31 @@
             <option value="sawtooth">sawtooth</option>
           </select>
         </div>
-        
+
         <!-- Volume -->
         <div class="w-16 mx-2 flex flex-col justify-between">
           <span class="text-xs text-white uppercase text-center leading-none font-bold tracking-wide">Volume</span>
-          <input class="input-knob outline-none" type="range" min="0" max="100" value="30" onchange="volumeSlider(event)"/>
+          <input class="cursor-pointer input-knob outline-none" type="range" min="0" max="100" value="30" onchange="volumeSlider(event)"/>
         </div>
 
-        <!-- Volume -->
+        <!-- Vibrato Amount -->
         <div class="w-16 mx-2 flex flex-col justify-between">
           <span class="text-xs text-white uppercase text-center leading-none font-bold tracking-wide">Vibrato</span>
-          <input class="input-knob outline-none" type="range" min="0" max="25" value="5" onchange="vibratoAmountSlider(event)"/>
+          <input class="cursor-pointer input-knob outline-none" type="range" min="0" max="25" value="5" onchange="vibratoAmountSlider(event)"/>
         </div>
 
-        <!-- Volume -->
+        <!-- Vibrato Rate -->
         <div class="w-16 mx-2 flex flex-col justify-between">
           <span class="text-xs text-white uppercase text-center leading-none font-bold tracking-wide">Speed</span>
-          <input class="input-knob outline-none" type="range" min="0" max="20" value="10" onchange="vibratoSpeedSlider(event)"/>
+          <input class="cursor-pointer input-knob outline-none" type="range" min="0" max="20" value="10" onchange="vibratoSpeedSlider(event)"/>
         </div>
+
+        <!-- Show / Hide keyboard Shortcuts -->
+        <div class="w-20 mx-2 flex flex-col justify-between">
+          <span class="text-xs text-white uppercase text-center leading-none font-bold tracking-wide">Shortcuts</span>
+          <input type="checkbox" class="cursor-pointer input-switch" data-fgcolor="#8B5CF6" data-diameter="64" onchange="toggleKeyboardShortcuts(event)"/>
+        </div>
+        
 
       </div>
 
@@ -61,25 +68,59 @@
 
     <!-- Keys -->
     <ul class="keyboard">
-      <li data-note="C4" class="key first-last-key white"></li>
-      <li data-note="C#4" class="key black"></li>
-      <li data-note="D4" class="key white"></li>
-      <li data-note="D#4" class="key black"></li>
-      <li data-note="E4" class="key white"></li>
-      <li data-note="F4" class="key white"></li>
-      <li data-note="F#4" class="key black"></li>
-      <li data-note="G4" class="key white"></li>
-      <li data-note="G#4" class="key black"></li>
-      <li data-note="A4" class="key white"></li>
-      <li data-note="A#4" class="key black"></li>
-      <li data-note="B4" class="key white"></li>
-      <li data-note="C5" class="key white"></li>
-      <li data-note="C#5" class="key black"></li>
-      <li data-note="D5" class="key white"></li>
-      <li data-note="D#5" class="key black"></li>
-      <li data-note="E5" class="key first-last-key white"></li>
+      <li data-note="C4" class="key first-last-key white">
+        <span data-toggle-key class="hidden absolute bottom-3 opacity-60 mx-auto text-center w-full">a</span>  
+      </li>
+      <li data-note="C#4" class="key black">
+        <span data-toggle-key class="hidden absolute bottom-3 opacity-60 mx-auto text-center text-white w-full">w</span>  
+      </li>
+      <li data-note="D4" class="key white">
+        <span data-toggle-key class="hidden absolute bottom-3 opacity-60 mx-auto text-center w-full">s</span>  
+      </li>
+      <li data-note="D#4" class="key black">
+        <span data-toggle-key class="hidden absolute bottom-3 opacity-60 mx-auto text-center text-white w-full">e</span>  
+      </li>
+      <li data-note="E4" class="key white">
+        <span data-toggle-key class="hidden absolute bottom-3 opacity-60 mx-auto text-center w-full">d</span>  
+      </li>
+      <li data-note="F4" class="key white">
+        <span data-toggle-key class="hidden absolute bottom-3 opacity-60 mx-auto text-center w-full">f</span>  
+      </li>
+      <li data-note="F#4" class="key black">
+        <span data-toggle-key class="hidden absolute bottom-3 opacity-60 mx-auto text-center text-white w-full">t</span>  
+      </li>
+      <li data-note="G4" class="key white">
+        <span data-toggle-key class="hidden absolute bottom-3 opacity-60 mx-auto text-center w-full">g</span>  
+      </li>
+      <li data-note="G#4" class="key black">
+        <span data-toggle-key class="hidden absolute bottom-3 opacity-60 mx-auto text-center text-white w-full">y</span>  
+      </li>
+      <li data-note="A4" class="key white">
+        <span data-toggle-key class="hidden absolute bottom-3 opacity-60 mx-auto text-center w-full">h</span>  
+      </li>
+      <li data-note="A#4" class="key black">
+        <span data-toggle-key class="hidden absolute bottom-3 opacity-60 mx-auto text-center text-white w-full">u</span>  
+      </li>
+      <li data-note="B4" class="key white">
+        <span data-toggle-key class="hidden absolute bottom-3 opacity-60 mx-auto text-center w-full">j</span>  
+      </li>
+      <li data-note="C5" class="key white">
+        <span data-toggle-key class="hidden absolute bottom-3 opacity-60 mx-auto text-center w-full">k</span>  
+      </li>
+      <li data-note="C#5" class="key black">
+        <span data-toggle-key class="hidden absolute bottom-3 opacity-60 mx-auto text-center text-white w-full">o</span>  
+      </li>
+      <li data-note="D5" class="key white">
+        <span data-toggle-key class="hidden absolute bottom-3 opacity-60 mx-auto text-center w-full">l</span>  
+      </li>
+      <li data-note="D#5" class="key black">
+        <span data-toggle-key class="hidden absolute bottom-3 opacity-60 mx-auto text-center text-white w-full">p</span>  
+      </li>
+      <li data-note="E5" class="key first-last-key white">
+        <span data-toggle-key class="hidden absolute bottom-3 opacity-60 mx-auto text-center w-full">;</span>  
+      </li>
     </ul>
   </section>
-  
+
   </body>
 </html>
