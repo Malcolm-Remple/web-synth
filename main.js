@@ -57,31 +57,30 @@ const playSnare = () => {
   whiteNoiseGain.gain.setValueAtTime(1, audioContext.currentTime);
   whiteNoiseGain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
   whiteNoiseSource.connect(whiteNoiseGain);
-  
+
   // Connect to snare filter.
   whiteNoiseGain.connect(snareFilter);
-  
+
   // Call the start method.
   whiteNoiseSource.start();
   whiteNoiseSource.stop(audioContext.currentTime + 0.2); // Duration of note.
-  
+
   // Create oscillator node for snare.
   const snareOscillator = audioContext.createOscillator();
   snareOscillator.type = "triangle" // Set waveform.
   snareOscillator.frequency.setValueAtTime(150, audioContext.currentTime) // Set frequency.
-  
+
   // Create gain node for oscillator.
   const oscillatorGain = audioContext.createGain();
   oscillatorGain.gain.setValueAtTime(1.7, audioContext.currentTime); // Set gain.
   oscillatorGain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-  
+
   // Connect snare to gain
   snareOscillator.connect(oscillatorGain);
   oscillatorGain.connect(primaryGainControl);
-  
+
   snareOscillator.start();
   snareOscillator.stop(audioContext.currentTime + 0.2);
-
 };
 
 // Play snare on click
@@ -255,7 +254,7 @@ const playNote = (frequency, element) => {
 // Keyboard Loop over notes
 notes.forEach(({name, frequency}) => {
   const noteButton = document.querySelector(`[data-note="${name}"]`);
-  
+
   noteButton.addEventListener("click", () => {
     playNote(frequency, noteButton);
   });
@@ -299,7 +298,7 @@ function success(midiAccess) {
   midiAccess.addEventListener('statechange', updateDevice);
 
   const inputs = midiAccess.inputs;
-  
+
   inputs.forEach((input) => {
     input.addEventListener('midimessage', handleInput);
   });
